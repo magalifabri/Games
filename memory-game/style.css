@@ -1,0 +1,42 @@
+* {
+    box-sizing: border-box;
+}
+
+.image-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+}
+
+.image-wrapper img {
+    width: 100px;
+    
+    padding: 10px;
+    border: 3px solid lightgray;
+    border-radius: 3px;
+
+    object-position: 0px;
+    transition: all .3s;
+}
+.image-wrapper img.upside-down {
+    object-position: 100px;
+}
+
+.win {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 0vw;
+    z-index: 1;
+    
+    background-color: white;
+    background-image: url("./images/groceries.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: all .7s .5s;
+}
+.win.active {
+    width: 100vw;
+}
