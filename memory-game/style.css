@@ -1,6 +1,20 @@
+:root {
+    --player-1-color: thistle;
+    --player-2-color: wheat;
+    --player-1-color-dark: rgb(182, 73, 182);
+    --player-2-color-dark: rgb(216, 153, 36);
+}
+
 * {
     box-sizing: border-box;
 }
+
+body {
+    transition: all .3s;
+    font-family: 'Lato', sans-serif;
+}
+body.player-1 { background-color: var(--player-1-color); }
+body.player-2 { background-color: var(--player-2-color); }
 
 .image-wrapper {
     display: flex;
@@ -13,7 +27,8 @@
     width: 100px;
     
     padding: 10px;
-    border: 3px solid lightgray;
+    border: 5px solid rgb(182, 182, 182);
+    background-color: white;
     border-radius: 3px;
 
     object-position: 0px;
@@ -21,7 +36,10 @@
 }
 .image-wrapper img.upside-down {
     object-position: 100px;
+    background-color: lightgray;
 }
+img.player-1 { border-color: var(--player-1-color-dark); }
+img.player-2 { border-color: var(--player-2-color-dark); }
 
 .win {
     position: absolute;
@@ -35,8 +53,16 @@
     background-image: url("./images/groceries.png");
     background-position: center;
     background-repeat: no-repeat;
+    background-size: contain;
     transition: all .7s .5s;
 }
 .win.active {
     width: 100vw;
+}
+
+.win.active .score {
+    justify-content: center;
+    text-align: center;
+    transition: all .7s .5s;
+    font-size: 1.5rem;
 }

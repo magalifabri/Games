@@ -1,18 +1,22 @@
 const images = [
     "./images/apple.png",
-    "./images/carrot.png",
-    "./images/grapes.png",
-    "./images/orange.png",
-    "./images/salad.png",
-    "./images/broccoli.png",
-    "./images/cheese.png",
-    "./images/groceries.png",
-    "./images/salad-bowl.png",
-    "./images/tomato.png"
+    // "./images/carrot.png",
+    // "./images/grapes.png",
+    // "./images/orange.png",
+    // "./images/salad.png",
+    // "./images/broccoli.png",
+    // "./images/cheese.png",
+    // "./images/groceries.png",
+    // "./images/salad-bowl.png",
+    // "./images/tomato.png"
 ];
 const flippedImageNodes = [];
 const permaFlippedImageNodes = [];
-
+const players = [
+    "player-1",
+    "player-2"
+];
+let playerNum = 0;
 
 function shuffleImages() {
     for (child of imageWrapper.children) {
@@ -21,16 +25,27 @@ function shuffleImages() {
     }
 }
 
-// function switchPlayer() {
-//     // change background color or body
-//     // assign differnet color class to matched cards
-// }
+function switchPlayer() {
+    playerNum++;
+    if (playerNum === players.length) {
+        playerNum = 0;
+    }
+
+    // change background color of body
+    for (const player of players) {
+        document.body.classList.remove(player);
+    }
+    document.body.classList.add(players[playerNum]);
+
+    const playerTurnTndication = document.querySelector(".player-turn-indication");
+    playerTurnTndication.textContent = `Turn: ${players[playerNum]}`
+}
 
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function flip() {
+async function turnBackAround() {
     await sleep(1000);
     for (image of flippedImageNodes) {
         image.classList.toggle("upside-down");
@@ -40,8 +55,14 @@ async function flip() {
 }
 
 function win() {
-    // document.body.classList.add(".win");
-    document.querySelector(".win").classList.add("active");
+    const winDiv = document.querySelector(".win");
+    winDiv.classList.add("active");
+    
+    const player1Score = document.querySelectorAll("img.player-1").length;
+    const player2Score = document.querySelectorAll("img.player-2").length;
+    const winDivP = document.querySelector(".score");
+    winDivP.innerHTML = `<b>Score</b>:<br>- player-1: ${player1Score}<br>- player-2: ${player2Score}`;
+
 }
 
 function compareImages() {
@@ -69,17 +90,18 @@ function check(event) {
     if (flippedImageNodes.length === 2) {
         if (compareImages() === true) {
             // if they are the same, keep them flipped and allow more images to be flipped
+            // assign 
+            flippedImageNodes[0].classList.add(players[playerNum]);
+            flippedImageNodes[1].classList.add(players[playerNum]);
             permaFlippedImageNodes.push(flippedImageNodes.pop());
             permaFlippedImageNodes.push(flippedImageNodes.pop());
-            console.log(permaFlippedImageNodes.length);
             // check if all images have been turned
             if (permaFlippedImageNodes.length === images.length * 2) {
                 win();
             }
         } else {
-            // if they're not the same, turn them around again
-            flip();
-            // switchPlayer();
+            turnBackAround();
+            switchPlayer();
         }
     }
 }
@@ -106,3 +128,7 @@ addDescriptionToPage();
 insertImages();
 insertImages();
 shuffleImages();
+
+// To keep track of which player turned around which pairs of cards, the cards are given a class corresponding to the player who turned them over.
+
+// When a non-matching pair of cards is turned over, they are automatically turned around again after a specified duration of time. See function sleep().
