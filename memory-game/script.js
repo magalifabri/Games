@@ -80,7 +80,7 @@ function printScore() {
     const player2Score = document.querySelectorAll("img.player-2").length;
 
     playerTurnTndication.innerHTML = `<b>Score</b>:<br>- player-1: ${player1Score}<br>- player-2: ${player2Score}<hr>`;
-    
+
     if (player1Score > player2Score) {
         playerTurnTndication.innerHTML += `<b>player-1 wins!</b>`;
     } else if (player1Score < player2Score) {
@@ -149,10 +149,12 @@ function resetGame() {
     if (imageWrapper.children.length === 0) {
         return ;
     }
-    
-    if (playerNum === 1) {
-        switchPlayer();
+
+    while (permaFlippedImageNodes.length > 0) {
+        permaFlippedImageNodes.pop();
     }
+
+    switchPlayer();
 
     const cardNodes = imageWrapper.querySelectorAll("img");
     for (const card of cardNodes) {
