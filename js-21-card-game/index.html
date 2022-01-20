@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="./style.css">
+
+    <title>Blackjack</title>
+</head>
+<body>
+    <a href="../index.html">home</a>
+
+    <h1>Blackjack</h1>
+    <p class="loader">♣ ♦ ♥ ♠</p>
+
+    <button class="play active">play!</button>
+
+    <p class="players-bet">Your bet: <span></span></p>
+
+    <div class="dealer">
+        <p>dealer's cards:</p>
+        <ul class="cards">
+            <!-- JS GENERATED -->
+        </ul>
+        <p class="total">
+            <!-- JS GENERATED -->
+        </p>
+    </div>
+
+    <hr>
+    
+    <div class="player">
+        <button class="hit">hit</button>
+        <button class="stay">stay</button>
+        <p>player's cards:</p>
+        <ul class="cards">
+            <!-- JS GENERATED -->
+        </ul>
+        <p class="total">
+            <!-- JS GENERATED -->
+        </p>
+    </div>
+
+    <hr><hr>
+    <p class="balance">
+        Balance: <span></span>
+        <!-- JS GENERATED -->
+    </p>
+    <p>Log:</p>
+    <ul class="log">
+        <!-- JS GENERATED -->
+    </ul>
+
+    <hr><hr>
+
+    <p>Goal: Score higher than the dealer, but lower than 21</p>
+    <p>Card values:</p>
+    <ul>
+        <li>2-10: face value</li>
+        <li>Jack, Queen, King: 10</li>
+        <li>Ace: 1 or 11 (dynamically decided)</li>
+    </ul>
+
+    <p>How to play:</p>
+    <ol>
+        <li>Press play</li>
+        <li>Place your bet</li>
+        <li>Press hit or stay and try to best the dealer!</li>
+    </ol>
+
+    <script src="./script.js"></script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+button.hit,
+button.stay,
+button.play,
+.face-down {
+    visibility: hidden;
+}
+
+button.hit.active,
+button.stay.active,
+button.play.active {
+    visibility: visible;
+}
+
+.loader.active {
+    animation: loader normal 3s;
+}
+
+@keyframes loader {
+    0% { transform: translate(0px, 0px); }
+    25% { transform: translate(10px, -10px); }
+    50% { transform: translate(20px, 0px); }
+    75% { transform: translate(10px, 10px); }
+    100% { transform: translate(0px, 0px); }
+}
