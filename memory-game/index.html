@@ -14,17 +14,17 @@
     <title>Memory Game</title>
 </head>
 <body class="player-1">
-    <h1>Memory Game</h1>
-
     <a href="../index.html">home</a>
 
-    <p class="description"></p>
+    <h1>Memory Game</h1>
 
-    <label for="number-of-card-pairs">How many <b>pairs</b> of cards do you want to play with?</label>
+    <p class="description">Cards are placed face down and in a random order. Can you find all the matching pairs?<br>Turn around 2 cards at a time. If they match, they stay face-up. Otherwise they turn back around. So you have to use your memory to select matching pairs as often as possible!</p>
+
+    <label for="number-of-card-pairs">How many <b>pairs</b> of cards do you want to play with? (max 20)</label>
     <input id="number-of-card-pairs" type="number" value="10" min="1" max="20">
     <button class="play">play</button>
 
-    <p class="player-turn-indication">Turn: player-1</p>
+    <p class="player-turn-indication player-1">Turn: player-1</p>
 
     <div class="win">
         <p class="score"></p>

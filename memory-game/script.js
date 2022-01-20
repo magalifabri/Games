@@ -51,14 +51,14 @@ function switchPlayer() {
         playerNum = 0;
     }
 
-    // change background color of body
-    for (const player of players) {
-        document.body.classList.remove(player);
-    }
-    document.body.classList.add(players[playerNum]);
-
     const playerTurnTndication = document.querySelector(".player-turn-indication");
     playerTurnTndication.textContent = `Turn: ${players[playerNum]}`
+    
+    // change background color of player-turn-indication
+    for (const player of players) {
+        playerTurnTndication.classList.remove(player);
+    }
+    playerTurnTndication.classList.add(players[playerNum]);
 }
 
 function sleep(ms) {
@@ -74,15 +74,20 @@ async function turnBackAround() {
     flippedImageNodes.pop();
 }
 
-function win() {
-    const winDiv = document.querySelector(".win");
-    winDiv.classList.add("active");
-    
+function printScore() {
+    const playerTurnTndication = document.querySelector(".player-turn-indication");
     const player1Score = document.querySelectorAll("img.player-1").length;
     const player2Score = document.querySelectorAll("img.player-2").length;
-    const winDivP = document.querySelector(".score");
-    winDivP.innerHTML = `<b>Score</b>:<br>- player-1: ${player1Score}<br>- player-2: ${player2Score}`;
 
+    playerTurnTndication.innerHTML = `<b>Score</b>:<br>- player-1: ${player1Score}<br>- player-2: ${player2Score}<hr>`;
+    
+    if (player1Score > player2Score) {
+        playerTurnTndication.innerHTML += `<b>player-1 wins!</b>`;
+    } else if (player1Score < player2Score) {
+        playerTurnTndication.innerHTML += `<b>player-2 wins!</b>`;
+    } else {
+        playerTurnTndication.innerHTML += `<b>it's a tie!</b>`;
+    }
 }
 
 function compareImages() {
@@ -118,7 +123,7 @@ function check(event) {
             
             // check if all images have been turned
             if (permaFlippedImageNodes.length === event.target.numCardPairs * 2) {
-                win();
+                printScore();
             }
         } else {
             turnBackAround();
@@ -168,12 +173,6 @@ function play() {
     shuffleImages();
 }
 
-function addDescriptionToPage() {
-    const descriptionP = document.querySelector(".description");
-    descriptionP.textContent = `${images.length} pairs of cards are placed face down and in a random order. Can you find all the matching pairs? Turn around 2 cards at a time. If they match, they stay face-up. Otherwise they turn back around. So you have to use your memory to select matching pairs as quickly as possible.`;
-}
-
-addDescriptionToPage();
 play();
 
 // To keep track of which player turned around which pairs of cards, the cards are given a class corresponding to the player who turned them over.
