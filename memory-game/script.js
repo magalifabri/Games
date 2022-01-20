@@ -34,6 +34,11 @@ const numCardPairsInputField = document.querySelector("#number-of-card-pairs");
 
 const playButton = document.querySelector("button.play");
 playButton.addEventListener("click", play);
+document.body.addEventListener("keydown", event => {
+    if (event.key === "Enter") {
+        play();
+    }
+});
 
 const imageWrapper = document.querySelector(".image-wrapper");
 
@@ -98,7 +103,7 @@ function compareImages() {
     === flippedImageNodes[1].getAttribute("data-images-array-index"));
 }
 
-function check(event) {
+function turnCardAround(event) {
     // don't allow the checking of already upside up images, more than 2 at a time, or the same square
     if (permaFlippedImageNodes.includes(event.target)
     || flippedImageNodes.length === 2
@@ -139,7 +144,7 @@ function insertImages(numToInsert) {
         newImgElem.classList.add("upside-down");
         newImgElem.setAttribute("src", image);
         newImgElem.setAttribute("data-images-array-index", i);
-        newImgElem.addEventListener("click", check);
+        newImgElem.addEventListener("click", turnCardAround);
         newImgElem.numCardPairs = numToInsert;
         imageWrapper.append(newImgElem);
     }
@@ -163,7 +168,7 @@ function resetGame() {
 }
 
 function play() {
-    const numCardPairs = numCardPairsInputField.valueAsNumber;
+    const numCardPairs = numCardPairsInputField.valueAsNumber || 10;
 
     if (numCardPairs < 2 || numCardPairs > images.length) {
         return ;
