@@ -38,7 +38,6 @@ const FACE_UP = "face-up";
 const FACE_DOWN = "face-down";
 
 function getCard() {
-    const alreadyUsedNums = [];
     let randNum = Math.floor(Math.random() * 52);
     while (alreadyUsedNums.includes(randNum)) {
         randNum = Math.floor(Math.random() * 52);
@@ -161,6 +160,7 @@ playButton.addEventListener("click", play);
 let bet;
 let balance = 0;
 let totalBalance = 0;
+const alreadyUsedNums = [];
 const handPlayer = [];
 const handDealer = [];
 const playerCardsUl = document.querySelector(".player .cards");
@@ -217,6 +217,7 @@ function setUp() {
 }
 
 function reset() {
+    while (alreadyUsedNums.pop());
     while (handPlayer.pop());
     while (handDealer.pop());
     
