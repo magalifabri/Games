@@ -188,7 +188,7 @@ function setUp() {
     bet = +prompt("Place your bet", 10) || 10;
 
     const playersBetSpan = document.querySelector(".players-bet span");
-    playersBetSpan.textContent += bet;
+    playersBetSpan.textContent = bet;
 
     // dealer deals 1 card face up to everyone, inc self
     dealCard(handPlayer, playerCardsUl, FACE_UP);
