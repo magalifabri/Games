@@ -1,15 +1,26 @@
 const images = [
+    "./images/broccoli.png",
+    "./images/cheese.png",
+    "./images/fish.png",
+    "./images/meat.png",
+    "./images/pizza.png",
+    "./images/salad.png",
+    "./images/tomato.png",
+    "./images/carrot.png",
+    "./images/cherries.png",
+    "./images/grapes.png",
+    "./images/milk.png",
+    "./images/potatoes.png",
+    "./images/steak.png",
     "./images/apple.png",
-    // "./images/carrot.png",
-    // "./images/grapes.png",
-    // "./images/orange.png",
-    // "./images/salad.png",
-    // "./images/broccoli.png",
-    // "./images/cheese.png",
-    // "./images/groceries.png",
-    // "./images/salad-bowl.png",
-    // "./images/tomato.png"
+    "./images/cereals.png",
+    "./images/cupcake.png",
+    "./images/groceries.png",
+    "./images/orange.png",
+    "./images/salad-bowl.png",
+    "./images/strawberry.png"
 ];
+
 const flippedImageNodes = [];
 const permaFlippedImageNodes = [];
 const players = [
@@ -17,6 +28,15 @@ const players = [
     "player-2"
 ];
 let playerNum = 0;
+
+
+const numCardPairsInputField = document.querySelector("#number-of-card-pairs");
+
+const playButton = document.querySelector("button.play");
+playButton.addEventListener("click", play);
+
+const imageWrapper = document.querySelector(".image-wrapper");
+
 
 function shuffleImages() {
     for (child of imageWrapper.children) {
@@ -90,13 +110,14 @@ function check(event) {
     if (flippedImageNodes.length === 2) {
         if (compareImages() === true) {
             // if they are the same, keep them flipped and allow more images to be flipped
-            // assign 
             flippedImageNodes[0].classList.add(players[playerNum]);
             flippedImageNodes[1].classList.add(players[playerNum]);
+
             permaFlippedImageNodes.push(flippedImageNodes.pop());
             permaFlippedImageNodes.push(flippedImageNodes.pop());
+            
             // check if all images have been turned
-            if (permaFlippedImageNodes.length === images.length * 2) {
+            if (permaFlippedImageNodes.length === event.target.numCardPairs * 2) {
                 win();
             }
         } else {
@@ -106,17 +127,45 @@ function check(event) {
     }
 }
 
-const imageWrapper = document.querySelector(".image-wrapper");
-function insertImages() {
-    for (let i = 0; i < images.length; i++) {
+function insertImages(numToInsert) {
+    for (let i = 0; i < numToInsert; i++) {
         const image = images[i];
         const newImgElem = document.createElement("img");
         newImgElem.classList.add("upside-down");
         newImgElem.setAttribute("src", image);
         newImgElem.setAttribute("data-images-array-index", i);
         newImgElem.addEventListener("click", check);
+        newImgElem.numCardPairs = numToInsert;
         imageWrapper.append(newImgElem);
     }
+}
+
+function resetGame() {
+    if (imageWrapper.children.length === 0) {
+        return ;
+    }
+    
+    if (playerNum === 1) {
+        switchPlayer();
+    }
+
+    const cardNodes = imageWrapper.querySelectorAll("img");
+    for (const card of cardNodes) {
+        card.remove();
+    }
+}
+
+function play() {
+    const numCardPairs = numCardPairsInputField.valueAsNumber;
+
+    if (numCardPairs < 2 || numCardPairs > images.length) {
+        return ;
+    }
+
+    resetGame();
+    insertImages(numCardPairs);
+    insertImages(numCardPairs);
+    shuffleImages();
 }
 
 function addDescriptionToPage() {
@@ -125,9 +174,7 @@ function addDescriptionToPage() {
 }
 
 addDescriptionToPage();
-insertImages();
-insertImages();
-shuffleImages();
+play();
 
 // To keep track of which player turned around which pairs of cards, the cards are given a class corresponding to the player who turned them over.
 
