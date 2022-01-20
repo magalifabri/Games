@@ -54,9 +54,12 @@ function getCard() {
 function getNewCardLi(newCard, face) {
     const newCardLi = document.createElement("li");
     newCardLi.classList.add(face);
-    // console.log("newCard[1]: " + newCard[1]);
-    // console.log("cardRanks[newCard[1]]: " + cardRanks[newCard[1]]);
-    newCardLi.textContent = cardRanks[newCard[1]] + " of " + newCard[0];
+    if (face === FACE_UP) {
+        newCardLi.textContent = cardRanks[newCard[1]] + " of " + newCard[0];
+    } else {
+        newCardLi.textContent = "Face-Down Card";
+        newCardLi.card = newCard;
+    }
 
     return (newCardLi);
 }
@@ -173,7 +176,9 @@ const stayButton = document.querySelector("button.stay");
 stayButton.addEventListener("click", stay)
 
 function endRound() {
-    dealerCardsUl.children[1].classList.remove(FACE_DOWN);
+    // reveal dealer's face-down card
+    dealerCardsUl.children[1].textContent = cardRanks[dealerCardsUl.children[1].card[1]]  + " of " + dealerCardsUl.children[1].card[0];
+
     updateLog();
     document.querySelector(".loader").classList.add("active");
     setTimeout(() => {
