@@ -1,7 +1,18 @@
+body {
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 20px;
+}
+
+.face-down {
+    /* color: white; */
+    /* background-color: black; */
+}
+
 button.hit,
 button.stay,
-button.play,
-.face-down {
+button.play {
     visibility: hidden;
 }
 
