@@ -22,11 +22,11 @@ button.play.visible {
     visibility: visible;
 }
 
-.loader.active {
-    animation: loader normal 3s;
+.suit-icons.wait-animation {
+    animation: wait-animation normal 3s;
 }
 
-@keyframes loader {
+@keyframes wait-animation {
     0% { transform: translate(0px, 0px); }
     25% { transform: translate(10px, -10px); }
     50% { transform: translate(20px, 0px); }

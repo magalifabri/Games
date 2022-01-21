@@ -167,6 +167,7 @@ const playerCardsUl = document.querySelector(".player .cards");
 const dealerCardsUl = document.querySelector(".dealer .cards");
 const playerTotalP = document.querySelector(".player .total");
 const dealerTotalP = document.querySelector(".dealer .total");
+const suitIcons = document.querySelector(".suit-icons");
 
 let proposeHit = true;
 const hitButton = document.querySelector("button.hit");
@@ -183,10 +184,10 @@ function endRound() {
     dealerCardsUl.children[1].textContent = cardRanks[dealerCardsUl.children[1].card[1]]  + " of " + dealerCardsUl.children[1].card[0];
 
     updateLog();
-    document.querySelector(".loader").classList.add("active");
+    suitIcons.classList.add("wait-animation");
     setTimeout(() => {
         reset();
-        document.querySelector(".loader").classList.remove("active");
+        suitIcons.classList.remove("wait-animation");
     }, 3000);
 }
 
