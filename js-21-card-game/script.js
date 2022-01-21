@@ -46,6 +46,11 @@ hitButton.addEventListener("click", hit);
 stayButton.addEventListener("click", stay)
 
 
+function getFormattedCardName(card) {
+    const name = `${cardRanks[card[1]]} of ${card[0]}`;
+    return (name);
+}
+
 function getCard() {
     let randNum = Math.floor(Math.random() * 52);
     while (alreadyUsedNums.includes(randNum)) {
@@ -63,10 +68,9 @@ function getNewCardLi(newCard, face) {
     const newCardLi = document.createElement("li");
     newCardLi.classList.add(face);
     if (face === FACE_UP) {
-        newCardLi.textContent = cardRanks[newCard[1]] + " of " + newCard[0];
+        newCardLi.textContent = getFormattedCardName(newCard);
     } else {
         newCardLi.textContent = "Face-Down Card";
-        newCardLi.card = newCard;
     }
 
     return (newCardLi);
@@ -122,12 +126,14 @@ function stay() {
     // end of round: dealer flips face down card
     dealerCardsUl.children[1].classList.remove(FACE_DOWN);
     let dealerTotal = getAndPrintTotal(dealerHand, dealerTotalP);
+    alert(`Dealer flipped face-down card: ${getFormattedCardName(dealerHand[1])}.\nDealer's total is ${dealerTotal}.`);
 
     // if total <= 16: take another card ("hit")
     // if total >= 17: stay with hand ("stay")
     while (dealerTotal <= 16) {
         dealCard(dealerHand, dealerCardsUl, FACE_UP);
         dealerTotal = getAndPrintTotal(dealerHand, dealerTotalP);
+        alert(`Dealer hit: ${getFormattedCardName(dealerHand[dealerHand.length - 1])}.\nDealer's total is ${dealerTotal}.`)
         
         // if new total > 21, "bust": everybody still in round wins 2x bet
         if (dealerTotal > 21) {
@@ -183,7 +189,7 @@ function endRound() {
     stayButton.classList.remove("visible");
 
     // reveal dealer's face-down card
-    dealerCardsUl.children[1].textContent = cardRanks[dealerCardsUl.children[1].card[1]]  + " of " + dealerCardsUl.children[1].card[0];
+    dealerCardsUl.children[1].textContent = getFormattedCardName(dealerHand[1]);
 
     updateLog();
     suitIcons.classList.add("wait-animation");
