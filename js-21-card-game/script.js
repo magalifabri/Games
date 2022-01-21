@@ -43,7 +43,21 @@ const suitIcons = document.querySelector(".suit-icons");
 
 playButton.addEventListener("click", startRound);
 hitButton.addEventListener("click", hit);
-stayButton.addEventListener("click", stay)
+stayButton.addEventListener("click", stay);
+window.addEventListener("keydown", checkKeyPress);
+
+function checkKeyPress(event) {
+    if (event.key === "Enter"
+    && playButton.classList.contains("visible")) {
+        startRound();
+    } else if (event.key === "Enter"
+    && hitButton.classList.contains("visible")) {
+        hit();
+    } else if (event.key === "s"
+    && stayButton.classList.contains("visible")) {
+        stay();
+    }
+}
 
 
 function getFormattedCardName(card) {
