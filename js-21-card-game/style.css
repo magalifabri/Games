@@ -16,9 +16,9 @@ button.play {
     visibility: hidden;
 }
 
-button.hit.active,
-button.stay.active,
-button.play.active {
+button.hit.visible,
+button.stay.visible,
+button.play.visible {
     visibility: visible;
 }
 

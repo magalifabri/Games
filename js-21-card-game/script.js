@@ -176,6 +176,9 @@ const stayButton = document.querySelector("button.stay");
 stayButton.addEventListener("click", stay)
 
 function endRound() {
+    hitButton.classList.remove("visible");
+    stayButton.classList.remove("visible");
+
     // reveal dealer's face-down card
     dealerCardsUl.children[1].textContent = cardRanks[dealerCardsUl.children[1].card[1]]  + " of " + dealerCardsUl.children[1].card[0];
 
@@ -184,7 +187,6 @@ function endRound() {
     setTimeout(() => {
         reset();
         document.querySelector(".loader").classList.remove("active");
-        playButton.classList.toggle("active");
     }, 3000);
 }
 
@@ -201,11 +203,9 @@ function setUp() {
 
     // dealer deals 1 card face up to everyone, ex self
     dealCard(handPlayer, playerCardsUl, FACE_UP);
-    // console.log(handPlayer);
 
     // dealer deals 1 card face down to self
     dealCard(handDealer, dealerCardsUl, FACE_DOWN);
-    // console.log(handDealer);
 
     // if a player's 2 face up cards total 21, auto win: 1.5x bet from dealer; done for the round
     const playerTotal = setTotal(handPlayer, playerTotalP);
@@ -218,12 +218,10 @@ function setUp() {
 
 function reset() {
     while (alreadyUsedNums.pop());
+
     while (handPlayer.pop());
     while (handDealer.pop());
     
-    // handPlayer.numAces = 0;
-    // handDealer.numAces = 0;
-
     handPlayer.increasedBy10 = false;
     handDealer.increasedBy10 = false;
     
@@ -233,18 +231,15 @@ function reset() {
     playerTotalP.innerHTML = "";
     dealerTotalP.innerHTML = "";
 
-    hitButton.classList.remove("active");
-    stayButton.classList.remove("active");
+    playButton.classList.add("visible");
 }
 
 function play() {
-    // reset();
-    playButton.classList.toggle("active");
-
     setUp();
     
-    hitButton.classList.toggle("active");
-    stayButton.classList.toggle("active");
+    playButton.classList.remove("visible");
+    hitButton.classList.add("visible");
+    stayButton.classList.add("visible");
 }
 
 // else: want another card?
