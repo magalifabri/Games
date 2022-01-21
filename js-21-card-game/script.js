@@ -35,6 +35,7 @@ const playButton = document.querySelector("button.play");
 const hitButton = document.querySelector("button.hit");
 const stayButton = document.querySelector("button.stay");
 
+const playersBetP = document.querySelector(".players-bet");
 const playerCardsUl = document.querySelector(".player .cards");
 const dealerCardsUl = document.querySelector(".dealer .cards");
 const playerTotalP = document.querySelector(".player .total");
@@ -45,6 +46,7 @@ playButton.addEventListener("click", startRound);
 hitButton.addEventListener("click", hit);
 stayButton.addEventListener("click", stay);
 window.addEventListener("keydown", checkKeyPress);
+
 
 function checkKeyPress(event) {
     if (event.key === "Enter"
@@ -58,7 +60,6 @@ function checkKeyPress(event) {
         stay();
     }
 }
-
 
 function getFormattedCardName(card) {
     const name = `${cardRanks[card[1]]} of ${card[0]}`;
@@ -119,7 +120,7 @@ function getAndPrintTotal(hand, totalP) {
         }
     }
 
-    totalP.textContent = "total: " + total;
+    totalP.innerHTML = `<b>Total: ${total}</b>`;
 
     return (total);
 }
@@ -190,6 +191,8 @@ function resetVars() {
     
     playerHand.increasedBy10 = false;
     dealerHand.increasedBy10 = false;
+
+    playersBetP.textContent = "";
     
     playerCardsUl.innerHTML = "";
     dealerCardsUl.innerHTML = "";
@@ -231,8 +234,7 @@ function startRound() {
 
     // player places bets
     bet = +prompt("Place your bet", 10) || 10;
-    const playersBetSpan = document.querySelector(".players-bet span");
-    playersBetSpan.textContent = bet;
+    playersBetP.innerHTML = `<b>Your bet: ${bet}</b>`;
 
     initialDeal();
     

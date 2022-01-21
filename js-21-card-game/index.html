@@ -7,88 +7,93 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=EB+Garamond:wght@400;500;600;700&family=Open+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,500;1,600;1,700;1,800;1,900&family=Prata&family=Roboto:wght@100;300;400;500;700&family=Yeseva+One&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
 
     <title>Blackjack</title>
 </head>
 <body>
-    <a href="../index.html">home</a>
-
-    <h1>Blackjack</h1>
-    <p class="suit-icons">
-        <span class="icon">♣</span>
-        <span class="icon">♦</span>
-        <span class="icon">♥</span>
-        <span class="icon">♠</span>
-    </p>
-
-    <button class="play visible">play!</button>
-
-    <p class="players-bet">Your bet: <span></span></p>
-
-    <hr>
+    <header>
+        <a href="../index.html">home</a>
     
-    <div class="dealer">
-        <p>dealer's hand:</p>
-        <ul class="cards">
-            <!-- JS GENERATED -->
-        </ul>
-        <p class="total">
+        <h1>Blackjack</h1>
+        <p class="suit-icons">
+            <span class="icon">♣</span>
+            <span class="icon">♦</span>
+            <span class="icon">♥</span>
+            <span class="icon">♠</span>
+        </p>
+    </header>
+
+    <main>
+        <div class="wrapper-play-bet">
+            <button class="play visible">play!</button>
+        
+            <p class="players-bet"></p>
+        </div>
+    
+        <hr>
+        
+        <div class="dealer">
+            <h3>dealer's hand:</h3>
+            <ul class="cards">
+                <!-- JS GENERATED -->
+            </ul>
+            <p class="total">
+                <!-- JS GENERATED -->
+            </p>
+        </div>
+    
+        <hr>
+    
+        <div class="player">
+            <div class="wrapper-hand-buttons">
+                <h3>player's hand:</h3>
+                <button class="hit">hit</button>
+                <button class="stay">stay</button>
+            </div>
+            <ul class="cards">
+                <!-- JS GENERATED -->
+            </ul>
+            <p class="total">
+                <!-- JS GENERATED -->
+            </p>
+        </div>
+    
+        <hr><hr><hr>
+        <p class="balance">
+            <b>Balance</b>: <span></span>
             <!-- JS GENERATED -->
         </p>
-    </div>
-
-    <hr>
-
-    <div class="player">
-        <button class="hit">hit</button>
-        <button class="stay">stay</button>
-        <p>player's hand:</p>
-        <ul class="cards">
+        <p><b>Log</b></p>
+        <ul class="log">
             <!-- JS GENERATED -->
         </ul>
-        <p class="total">
-            <!-- JS GENERATED -->
-        </p>
-    </div>
+    
+        <hr><hr><hr>
+    
+        <h2><a href="https://www.youtube.com/watch?v=eyoh-Ku9TCI">How to Play Blackjack</a></h2>
+        <ol>
+            <li>Press PLAY</li>
+            <li>Place your bet</li>
+            <li>Press HIT or STAY and try to score higher than the dealer, but lower than 21!</li>
+        </ol>
+    
+        <h2>Card Values</h2>
+        <ul>
+            <li>2-10: face value</li>
+            <li>Jack, Queen, King: 10</li>
+            <li>Ace: 1 or 11 (dynamically decided)</li>
+        </ul>
+    
+        <h2>Keyboard Shortcuts</h2>
+        <ul>
+            <li>Play: Enter</li>
+            <li>Hit: Enter</li>
+            <li>Stay: s</li>
+        </ul>
+    </main>
 
-    <hr><hr>
-    <p class="balance">
-        Balance: <span></span>
-        <!-- JS GENERATED -->
-    </p>
-    <p>Log:</p>
-    <ul class="log">
-        <!-- JS GENERATED -->
-    </ul>
-
-    <hr><hr>
-
-    <h2>Goal</h2>
-    <p>Score higher than the dealer, but lower than 21</p>
-
-    <h2>Card values</h2>
-    <ul>
-        <li>2-10: face value</li>
-        <li>Jack, Queen, King: 10</li>
-        <li>Ace: 1 or 11 (dynamically decided)</li>
-    </ul>
-
-    <h2>How to play</h2>
-    <ol>
-        <li>Press play</li>
-        <li>Place your bet</li>
-        <li>Press hit or stay and try to best the dealer!</li>
-    </ol>
-
-    <h2>Keyboard Shortcuts</h2>
-    <ul>
-        <li>Play: Enter</li>
-        <li>Hit: Enter</li>
-        <li>Stay: s</li>
-    </ul>
 
     <script src="./script.js"></script>
 </body>

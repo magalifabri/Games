@@ -1,19 +1,114 @@
+/*
+font-family: 'DM Serif Display', serif;
+font-family: 'Open Sans', sans-serif;
+font-family: 'Playfair Display', serif;
+font-family: 'Prata', serif;
+font-family: 'Roboto', sans-serif;
+font-family: 'Yeseva One', cursive;
+*/
+
+* {
+    box-sizing: border-box;;
+    margin: 0;
+    padding: 0;
+
+    /* border: 1px solid gray; */
+}
+
+ul, ol {
+    padding-left: 20px;
+}
+
+b {
+    font-weight: 600;
+}
+
+hr {
+    margin: 10px auto;
+    width: 50%;
+    border: none;
+    border-top: 1px solid lightgray;
+}
+
 body {
+    font-family: 'Open Sans', sans-serif;
+}
+
+header {
+    background-color: black;
+    color: white;
+    padding: 20px;
+}
+
+header a {
+    color: gray;
+}
+a {
+    color: black;
+}
+
+
+
+main {
     max-width: 350px;
+    margin: 0;
     margin-left: auto;
     margin-right: auto;
     padding: 20px;
 }
 
-.face-down {
-    /* color: white; */
-    /* background-color: black; */
+h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3rem;
+    text-align: center;
+    margin-bottom: 10px;
 }
+
+h2 {
+    font-family: 'EB Garamond', serif;
+    font-weight: 700;
+    margin: 20px 0 10px 0;
+}
+
+h3 {
+    font-family: 'EB Garamond', serif;
+    font-size: 1.3rem;
+    text-transform: capitalize;
+    margin: 10px 0;
+}
+
+
+.wrapper-play-bet {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.wrapper-hand-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
 
 button.hit,
 button.stay,
 button.play {
     visibility: hidden;
+
+    padding: 5px 15px;
+    border: none;
+    border-radius: 3px;;
+    
+    background-color: black;
+    color: white;
+    font-family: inherit;
+    text-transform: uppercase;
+    font-size: 1rem;
+    font-weight: bold;
 }
 
 button.hit.visible,
@@ -22,6 +117,10 @@ button.play.visible {
     visibility: visible;
 }
 
+
+.suit-icons {
+    text-align: center;
+}
 .suit-icons.wait-animation span {
     display: inline-block;
     animation: wait-animation normal 2.7s;
