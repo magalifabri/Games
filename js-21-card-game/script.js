@@ -1,22 +1,9 @@
-// goal: higher than dealer, <= 21
-
-// 2-10 face value
-// jack, queen, king, 10
-// ace is 1 or 11 (player's choice)
-
-// round:
-// everyone places bet
-
-// const userBet = +prompt("Place your bet") || 10;
-// clubs (♣), diamonds (♦), hearts (♥) and spades (♠)
-
 const cardTypes = [
     "Clubs",
     "Diamonds",
     "Hearts",
     "Spades"
 ];
-
 const cardRanks = [
     "",
     "Ace",
@@ -36,6 +23,28 @@ const cardRanks = [
 
 const FACE_UP = "face-up";
 const FACE_DOWN = "face-down";
+
+let bet;
+let balance = 0;
+let totalBalance = 0;
+const alreadyUsedNums = [];
+const playerHand = [];
+const dealerHand = [];
+
+const playButton = document.querySelector("button.play");
+const hitButton = document.querySelector("button.hit");
+const stayButton = document.querySelector("button.stay");
+
+const playerCardsUl = document.querySelector(".player .cards");
+const dealerCardsUl = document.querySelector(".dealer .cards");
+const playerTotalP = document.querySelector(".player .total");
+const dealerTotalP = document.querySelector(".dealer .total");
+const suitIcons = document.querySelector(".suit-icons");
+
+playButton.addEventListener("click", startRound);
+hitButton.addEventListener("click", hit);
+stayButton.addEventListener("click", stay)
+
 
 function getCard() {
     let randNum = Math.floor(Math.random() * 52);
@@ -69,7 +78,7 @@ function dealCard(hand, cardsUl, face) {
     cardsUl.append(getNewCardLi(newCard, face));
 }
 
-function setTotal(hand, totalP) {
+function getAndPrintTotal(hand, totalP) {
     let total = 0;
     hand.numAces = 0;
 
@@ -80,12 +89,12 @@ function setTotal(hand, totalP) {
             total += card[1];
         }
 
-        // take note of aces
+        // count aces
         if (card[1] === 1) {
             hand.numAces++;
         }
     }
-    // dynamically value the ace
+    // dynamically value aces
     for (let i = 0; i < hand.numAces; i++) {
         if (total <= 11) {
             total += 10;
@@ -98,9 +107,9 @@ function setTotal(hand, totalP) {
 }
 
 function hit() {
-    dealCard(handPlayer, playerCardsUl, FACE_UP);
+    dealCard(playerHand, playerCardsUl, FACE_UP);
 
-    const total = setTotal(handPlayer, playerTotalP);
+    const total = getAndPrintTotal(playerHand, playerTotalP);
 
     if (total > 21) {
         alert(`BUST! (Your total is ${total})`);
@@ -110,16 +119,15 @@ function hit() {
 }
 
 function stay() {
-    proposeHit = false;
     // end of round: dealer flips face down card
     dealerCardsUl.children[1].classList.remove(FACE_DOWN);
-    let dealerTotal = setTotal(handDealer, dealerTotalP);
+    let dealerTotal = getAndPrintTotal(dealerHand, dealerTotalP);
 
     // if total <= 16: take another card ("hit")
     // if total >= 17: stay with hand ("stay")
     while (dealerTotal <= 16) {
-        dealCard(handDealer, dealerCardsUl, FACE_UP);
-        dealerTotal = setTotal(handDealer, dealerTotalP);
+        dealCard(dealerHand, dealerCardsUl, FACE_UP);
+        dealerTotal = getAndPrintTotal(dealerHand, dealerTotalP);
         
         // if new total > 21, "bust": everybody still in round wins 2x bet
         if (dealerTotal > 21) {
@@ -132,7 +140,7 @@ function stay() {
 
     // everybody with a higher total than the dealer wins 2x their bet
     // others lose their bet
-    const playerTotal = setTotal(handPlayer, playerTotalP);
+    const playerTotal = getAndPrintTotal(playerHand, playerTotalP);
     if (playerTotal > dealerTotal) {
         alert(`YOU WIN! (You have ${playerTotal}; Dealer has ${dealerTotal})`);
         balance = bet * 2;
@@ -154,27 +162,21 @@ function updateLog() {
     logUl.append(newLi);
 }
 
-const playButton = document.querySelector("button.play");
-playButton.addEventListener("click", play);
+function resetVars() {
+    while (alreadyUsedNums.pop());
 
-let bet;
-let balance = 0;
-let totalBalance = 0;
-const alreadyUsedNums = [];
-const handPlayer = [];
-const handDealer = [];
-const playerCardsUl = document.querySelector(".player .cards");
-const dealerCardsUl = document.querySelector(".dealer .cards");
-const playerTotalP = document.querySelector(".player .total");
-const dealerTotalP = document.querySelector(".dealer .total");
-const suitIcons = document.querySelector(".suit-icons");
+    while (playerHand.pop());
+    while (dealerHand.pop());
+    
+    playerHand.increasedBy10 = false;
+    dealerHand.increasedBy10 = false;
+    
+    playerCardsUl.innerHTML = "";
+    dealerCardsUl.innerHTML = "";
 
-let proposeHit = true;
-const hitButton = document.querySelector("button.hit");
-hitButton.addEventListener("click", hit);
-
-const stayButton = document.querySelector("button.stay");
-stayButton.addEventListener("click", stay)
+    playerTotalP.innerHTML = "";
+    dealerTotalP.innerHTML = "";
+}
 
 function endRound() {
     hitButton.classList.remove("visible");
@@ -186,66 +188,43 @@ function endRound() {
     updateLog();
     suitIcons.classList.add("wait-animation");
     setTimeout(() => {
-        reset();
+        resetVars();
         suitIcons.classList.remove("wait-animation");
+        playButton.classList.add("visible");
     }, 3000);
 }
 
-function setUp() {
+function initialDeal() {
+    // dealer deals 1 card face up to everyone, inc self
+    dealCard(playerHand, playerCardsUl, FACE_UP);
+    dealCard(dealerHand, dealerCardsUl, FACE_UP);
+
+    // dealer deals 1 card face up to everyone, ex self
+    dealCard(playerHand, playerCardsUl, FACE_UP);
+
+    // dealer deals 1 card face down to self
+    dealCard(dealerHand, dealerCardsUl, FACE_DOWN);
+}
+
+function startRound() {
+    playButton.classList.remove("visible");
+
     // player places bets
     bet = +prompt("Place your bet", 10) || 10;
-
     const playersBetSpan = document.querySelector(".players-bet span");
     playersBetSpan.textContent = bet;
 
-    // dealer deals 1 card face up to everyone, inc self
-    dealCard(handPlayer, playerCardsUl, FACE_UP);
-    dealCard(handDealer, dealerCardsUl, FACE_UP);
-
-    // dealer deals 1 card face up to everyone, ex self
-    dealCard(handPlayer, playerCardsUl, FACE_UP);
-
-    // dealer deals 1 card face down to self
-    dealCard(handDealer, dealerCardsUl, FACE_DOWN);
-
+    initialDeal();
+    
     // if a player's 2 face up cards total 21, auto win: 1.5x bet from dealer; done for the round
-    const playerTotal = setTotal(handPlayer, playerTotalP);
-    if (playerTotal >= 21) {
+    const playerTotal = getAndPrintTotal(playerHand, playerTotalP);
+    if (playerTotal === 21) {
         balance = bet * 1.5;
         alert(`YOU WIN! (You have ${playerTotal})`);
         endRound();
+        return ;
     }
-}
 
-function reset() {
-    while (alreadyUsedNums.pop());
-
-    while (handPlayer.pop());
-    while (handDealer.pop());
-    
-    handPlayer.increasedBy10 = false;
-    handDealer.increasedBy10 = false;
-    
-    playerCardsUl.innerHTML = "";
-    dealerCardsUl.innerHTML = "";
-
-    playerTotalP.innerHTML = "";
-    dealerTotalP.innerHTML = "";
-
-    playButton.classList.add("visible");
-}
-
-function play() {
-    setUp();
-    
-    playButton.classList.remove("visible");
     hitButton.classList.add("visible");
     stayButton.classList.add("visible");
 }
-
-// else: want another card?
-//     while yes ("hit")
-//         if new total is > 21, "bust": dealer gets your bet
-//     no: "stay"
-
-
