@@ -22,14 +22,18 @@ button.play.visible {
     visibility: visible;
 }
 
-.suit-icons.wait-animation {
-    animation: wait-animation normal 3s;
+.suit-icons.wait-animation span {
+    display: inline-block;
+    animation: wait-animation normal 2.7s;
 }
+.suit-icons.wait-animation span:nth-child(3) { animation-delay: .1s }
+.suit-icons.wait-animation span:nth-child(2) { animation-delay: .2s }
+.suit-icons.wait-animation span:nth-child(1) { animation-delay: .3s }
 
 @keyframes wait-animation {
     0% { transform: translate(0px, 0px); }
-    25% { transform: translate(10px, -10px); }
-    50% { transform: translate(20px, 0px); }
-    75% { transform: translate(10px, 10px); }
+    25% { transform: translate(10px, -10px) scale(110%); }
+    50% { transform: translate(20px, 0px) scale(130%); }
+    75% { transform: translate(10px, 10px) scale(110%); }
     100% { transform: translate(0px, 0px); }
 }
