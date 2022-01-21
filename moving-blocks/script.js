@@ -120,6 +120,12 @@ function chase() {
     }
 }
 
+function checkForContact() {
+    if (Math.abs(playerBlock.x - enemyBlock.x) <= 30
+    && Math.abs(playerBlock.y - enemyBlock.y) <= 30) {
+        alert("contact");
+    }
+}
 
 // setInterval(() => {
 //     moveRandomly();
@@ -127,6 +133,7 @@ function chase() {
 
 setInterval(() => {
     chase();
+    checkForContact();
 }, 100);
 
 // function getBrowserWindowWidth() {
