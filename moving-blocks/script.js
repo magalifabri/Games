@@ -1,22 +1,14 @@
+const arenaDiv = document.querySelector(".arena");
 const playerBlock = document.createElement("div");
-playerBlock.classList.add("player-block");
-playerBlock.x = 0;
-playerBlock.y = 0;
-playerBlock.width = 50;
-playerBlock.height = 50;
-playerBlock.style.width = playerBlock.width + "px";
-playerBlock.style.height = playerBlock.height + "px";
-playerBlock.moveSpeed = 20;
+const enemyBlock = document.createElement("div");
 
 const browserWindowWidth = window.innerWidth;
 const browserWindowHeight = window.innerHeight;
 
-const arenaDiv = document.querySelector(".arena");
-arenaDiv.append(playerBlock);
-
 window.addEventListener("keydown", move);
 
 
+// PLAYER MOVEMENT
 
 function moveX(block, amount) {
     if (block.x + amount < 0
@@ -64,22 +56,9 @@ function move(event) {
 }
 
 
-const enemyBlock = document.createElement("div");
-enemyBlock.classList.add("enemy-block");
-enemyBlock.width = 50;
-enemyBlock.height = 50;
-enemyBlock.style.width = enemyBlock.width + "px";
-enemyBlock.style.height = enemyBlock.height + "px";
+// ENEMY MOVEMENT
 
-enemyBlock.x = browserWindowWidth - enemyBlock.width;
-enemyBlock.style.left = enemyBlock.x + "px";
-enemyBlock.y = browserWindowHeight - enemyBlock.height;;
-enemyBlock.style.top = enemyBlock.y + "px";
-enemyBlock.moveSpeed = 20;
-
-arenaDiv.append(enemyBlock);
-
-function moveRandomly() {
+function moveInRandomDirection() {
     const randomNum = Math.floor(Math.random() * 4);
 
     switch (randomNum) {
@@ -101,7 +80,7 @@ function moveRandomly() {
     }
 }
 
-function chase() {
+function moveCloser() {
     const xDelta = enemyBlock.x - playerBlock.x;
     const yDelta = enemyBlock.y - playerBlock.y;
     
@@ -127,15 +106,61 @@ function checkForContact() {
     }
 }
 
-// setInterval(() => {
-//     moveRandomly();
-// }, 100);
+function wander() {
+    setInterval(() => {
+        moveInRandomDirection();
+        checkForContact();
+    }, 100);
+}
 
-setInterval(() => {
-    chase();
-    checkForContact();
-}, 100);
+function chase() {
+    setInterval(() => {
+        moveCloser();
+        checkForContact();
+    }, 100);
+}
 
+
+// BLOCK CREATION
+
+function createEnemyBlock(size, speed, movement) {
+    enemyBlock.classList.add("enemy-block");
+    enemyBlock.width = size;
+    enemyBlock.height = size;
+    enemyBlock.style.width = enemyBlock.width + "px";
+    enemyBlock.style.height = enemyBlock.height + "px";
+    
+    enemyBlock.x = browserWindowWidth - enemyBlock.width;
+    enemyBlock.style.left = enemyBlock.x + "px";
+    enemyBlock.y = browserWindowHeight - enemyBlock.height;;
+    enemyBlock.style.top = enemyBlock.y + "px";
+
+    enemyBlock.moveSpeed = speed;
+
+    arenaDiv.append(enemyBlock);
+
+    movement();
+}
+
+function createPlayerBlock() {
+    playerBlock.classList.add("player-block");
+    playerBlock.x = 0;
+    playerBlock.y = 0;
+    playerBlock.width = 50;
+    playerBlock.height = 50;
+    playerBlock.style.width = playerBlock.width + "px";
+    playerBlock.style.height = playerBlock.height + "px";
+    playerBlock.moveSpeed = 20;
+
+    arenaDiv.append(playerBlock);
+}
+
+function game() {
+    createPlayerBlock();
+    createEnemyBlock(50, 20, chase);
+}
+
+game();
 // function getBrowserWindowWidth() {
 //     return Math.max(
 //         document.body.scrollWidth,
