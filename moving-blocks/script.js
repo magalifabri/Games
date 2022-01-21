@@ -18,24 +18,24 @@ window.addEventListener("keydown", move);
 
 
 
-function moveX(amount) {
-    if (playerBlock.x + amount < 0
-    || playerBlock.x + playerBlock.width + amount > browserWindowWidth) {
+function moveX(block, amount) {
+    if (block.x + amount < 0
+    || block.x + block.width + amount > browserWindowWidth) {
         return ;
     }
     
-    playerBlock.x += amount;
-    playerBlock.style.left = `${playerBlock.x}px`;
+    block.x += amount;
+    block.style.left = `${block.x}px`;
 }
 
-function moveY(amount) {
-    if (playerBlock.y + amount < 0
-    || playerBlock.y + playerBlock.height + amount > browserWindowHeight) {
+function moveY(block, amount) {
+    if (block.y + amount < 0
+    || block.y + block.height + amount > browserWindowHeight) {
         return ;
     }
 
-    playerBlock.y += amount;
-    playerBlock.style.top = `${playerBlock.y}px`;
+    block.y += amount;
+    block.style.top = `${block.y}px`;
 }
 
 function move(event) {
@@ -43,26 +43,91 @@ function move(event) {
     
     switch (pressedKey) {
         case "w":
-            moveY(-playerBlock.moveSpeed);
+            moveY(playerBlock, -playerBlock.moveSpeed);
             break;
             
         case "a":
-            moveX(-playerBlock.moveSpeed);
+            moveX(playerBlock, -playerBlock.moveSpeed);
             break;
             
         case "s":
-            moveY(playerBlock.moveSpeed);
+            moveY(playerBlock, playerBlock.moveSpeed);
             break;
             
         case "d":
-            moveX(playerBlock.moveSpeed);
+            moveX(playerBlock, playerBlock.moveSpeed);
             break;
             
         default:
             break;
     }
-
 }
+
+
+const enemyBlock = document.createElement("div");
+enemyBlock.classList.add("enemy-block");
+enemyBlock.width = 50;
+enemyBlock.height = 50;
+enemyBlock.style.width = enemyBlock.width + "px";
+enemyBlock.style.height = enemyBlock.height + "px";
+
+enemyBlock.x = browserWindowWidth - enemyBlock.width;
+enemyBlock.style.left = enemyBlock.x + "px";
+enemyBlock.y = browserWindowHeight - enemyBlock.height;;
+enemyBlock.style.top = enemyBlock.y + "px";
+enemyBlock.moveSpeed = 20;
+
+arenaDiv.append(enemyBlock);
+
+function moveRandomly() {
+    const randomNum = Math.floor(Math.random() * 4);
+
+    switch (randomNum) {
+        case 0:
+            moveY(enemyBlock, -enemyBlock.moveSpeed);
+            break;
+        case 1:
+            moveX(enemyBlock, -enemyBlock.moveSpeed);
+            break;
+        case 2:
+            moveY(enemyBlock, enemyBlock.moveSpeed);
+            break;
+        case 3:
+            moveX(enemyBlock, enemyBlock.moveSpeed);
+            break;
+    
+        default:
+            break;
+    }
+}
+
+function chase() {
+    const xDelta = enemyBlock.x - playerBlock.x;
+    const yDelta = enemyBlock.y - playerBlock.y;
+    
+    if (Math.abs(xDelta) > Math.abs(yDelta)) {
+        if (xDelta < 0) {
+            moveX(enemyBlock, enemyBlock.moveSpeed)
+        } else {
+            moveX(enemyBlock, -enemyBlock.moveSpeed)
+        }
+    } else {
+        if (yDelta < 0) {
+            moveY(enemyBlock, enemyBlock.moveSpeed)
+        } else {
+            moveY(enemyBlock, -enemyBlock.moveSpeed)
+        }
+    }
+}
+
+
+// setInterval(() => {
+//     moveRandomly();
+// }, 100);
+
+setInterval(() => {
+    chase();
+}, 100);
 
 // function getBrowserWindowWidth() {
 //     return Math.max(
