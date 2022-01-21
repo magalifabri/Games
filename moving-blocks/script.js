@@ -1,6 +1,8 @@
 const arenaDiv = document.querySelector(".arena");
 const playerBlock = document.createElement("div");
-const enemyBlock = document.createElement("div");
+const enemyBlock1 = document.createElement("div");
+const enemyBlock2 = document.createElement("div");
+const enemyBlock3 = document.createElement("div");
 
 const browserWindowWidth = window.innerWidth;
 const browserWindowHeight = window.innerHeight;
@@ -58,88 +60,91 @@ function move(event) {
 
 // ENEMY MOVEMENT
 
-function moveInRandomDirection() {
+function moveInRandomDirection(block) {
+    checkForContact(block);
+    
     const randomNum = Math.floor(Math.random() * 4);
-
     switch (randomNum) {
         case 0:
-            moveY(enemyBlock, -enemyBlock.moveSpeed);
+            moveY(block, -block.moveSpeed);
             break;
         case 1:
-            moveX(enemyBlock, -enemyBlock.moveSpeed);
+            moveX(block, -block.moveSpeed);
             break;
         case 2:
-            moveY(enemyBlock, enemyBlock.moveSpeed);
+            moveY(block, block.moveSpeed);
             break;
         case 3:
-            moveX(enemyBlock, enemyBlock.moveSpeed);
+            moveX(block, block.moveSpeed);
             break;
     
         default:
             break;
     }
+    checkForContact(block);
 }
 
-function moveCloser() {
-    const xDelta = enemyBlock.x - playerBlock.x;
-    const yDelta = enemyBlock.y - playerBlock.y;
+function moveCloser(block) {
+    const xDelta = block.x - playerBlock.x;
+    const yDelta = block.y - playerBlock.y;
     
     if (Math.abs(xDelta) > Math.abs(yDelta)) {
         if (xDelta < 0) {
-            moveX(enemyBlock, enemyBlock.moveSpeed)
+            moveX(block, block.moveSpeed)
         } else {
-            moveX(enemyBlock, -enemyBlock.moveSpeed)
+            moveX(block, -block.moveSpeed)
         }
     } else {
         if (yDelta < 0) {
-            moveY(enemyBlock, enemyBlock.moveSpeed)
+            moveY(block, block.moveSpeed)
         } else {
-            moveY(enemyBlock, -enemyBlock.moveSpeed)
+            moveY(block, -block.moveSpeed)
         }
     }
 }
 
-function checkForContact() {
-    if (Math.abs(playerBlock.x - enemyBlock.x) <= 30
-    && Math.abs(playerBlock.y - enemyBlock.y) <= 30) {
+function checkForContact(block) {
+    if (Math.abs(playerBlock.x - block.x) <= 30
+    && Math.abs(playerBlock.y - block.y) <= 30) {
         alert("contact");
     }
 }
 
-function wander() {
+function wander(block) {
     setInterval(() => {
-        moveInRandomDirection();
-        checkForContact();
+        moveInRandomDirection(block);
+        checkForContact(block);
     }, 100);
 }
 
-function chase() {
+function chase(block) {
     setInterval(() => {
-        moveCloser();
-        checkForContact();
+        moveCloser(block);
+        checkForContact(block);
     }, 100);
 }
 
 
 // BLOCK CREATION
 
-function createEnemyBlock(size, speed, movement) {
-    enemyBlock.classList.add("enemy-block");
-    enemyBlock.width = size;
-    enemyBlock.height = size;
-    enemyBlock.style.width = enemyBlock.width + "px";
-    enemyBlock.style.height = enemyBlock.height + "px";
+function createEnemyBlock(block, size, speed, movement) {
+    block.classList.add("enemy-block");
+    block.width = size;
+    block.height = size;
+    block.style.width = block.width + "px";
+    block.style.height = block.height + "px";
+    block.style.backgroundColor = "#" + Math.floor(Math.random()*16777215).toString(16);
     
-    enemyBlock.x = browserWindowWidth - enemyBlock.width;
-    enemyBlock.style.left = enemyBlock.x + "px";
-    enemyBlock.y = browserWindowHeight - enemyBlock.height;;
-    enemyBlock.style.top = enemyBlock.y + "px";
+    block.x = browserWindowWidth - block.width;
+    block.style.left = block.x + "px";
+    block.y = browserWindowHeight - block.height;;
+    block.style.top = block.y + "px";
 
-    enemyBlock.moveSpeed = speed;
+    block.moveSpeed = speed;
 
-    arenaDiv.append(enemyBlock);
+    arenaDiv.append(block);
 
-    movement();
+    movement(block);
 }
 
 function createPlayerBlock() {
@@ -157,30 +162,9 @@ function createPlayerBlock() {
 
 function game() {
     createPlayerBlock();
-    createEnemyBlock(50, 20, chase);
+    createEnemyBlock(enemyBlock1, 50, 20, chase);
+    createEnemyBlock(enemyBlock2, 50, 30, wander);
+    createEnemyBlock(enemyBlock3, 50, 30, wander);
 }
 
 game();
-// function getBrowserWindowWidth() {
-//     return Math.max(
-//         document.body.scrollWidth,
-//         document.documentElement.scrollWidth,
-//         document.body.offsetWidth,
-//         document.documentElement.offsetWidth,
-//         document.documentElement.clientWidth
-//         );
-// }
-
-// function getBrowserWindowHeight() {
-//     return Math.max(
-//         document.body.scrollHeight,
-//         document.documentElement.scrollHeight,
-//         document.body.offsetHeight,
-//         document.documentElement.offsetHeight,
-//         document.documentElement.clientHeight
-//         );
-// }
-
-// console.log('Width:  ' +  getWidth() );
-  
-// console.log('Height: ' + getHeight() );

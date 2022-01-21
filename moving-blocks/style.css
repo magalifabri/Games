@@ -21,13 +21,10 @@ body {
 .player-block {
     position: absolute;
     background-color: rgb(90, 192, 90);
-    /* border: 3px solid rgb(33, 161, 33); */
-    
-    /* transition: all .1s; */
 }
 
 .enemy-block {
     position: absolute;
-    background-color: rgb(197, 94, 94);
-    /* border: 3px solid rgb(180, 48, 31); */
+    border: 1px solid black;
+    transition: all .1s;
 }
