@@ -75,10 +75,11 @@ h3 {
 
 .wrapper-play-bet {
   display: flex;
+  width: calc(50% + 37.5px);
   flex-direction: row;
   align-items: center;
   gap: 10px;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 .wrapper-hand-buttons {
