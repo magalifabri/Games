@@ -235,11 +235,22 @@ function initialDeal() {
     dealCard(dealerHand, dealerCardsDiv, FACE_DOWN);
 }
 
+function getValidBet() {
+    let validBetGiven = false;
+    
+    while (validBetGiven === false) {
+        bet = +prompt("Place your bet (min. 1)", 10);
+        if (bet >= 1)
+            validBetGiven = true;
+    }
+}
+
 function startRound() {
     playButton.classList.remove("visible");
 
     // player places bets
-    bet = +prompt("Place your bet", 10) || 10;
+    getValidBet();
+
     playersBetP.innerHTML = `<b>Your bet: ${bet}</b>`;
 
     initialDeal();
