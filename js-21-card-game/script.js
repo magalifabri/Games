@@ -175,9 +175,12 @@ function stay() {
     if (playerTotal > dealerTotal) {
         alert(`YOU WIN! (You have ${playerTotal}; Dealer has ${dealerTotal})`);
         balance = bet * 2;
-    } else {
+    } else if (playerTotal < dealerTotal) {
         alert(`You Lose. (You have ${playerTotal}; Dealer has ${dealerTotal})`);
         balance = -bet;
+    } else {
+        alert(`Tie. (You and Dealer both have ${playerTotal})`);
+        balance = 0;
     }
     endRound();
 }
