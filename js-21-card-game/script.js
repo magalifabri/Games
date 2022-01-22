@@ -36,8 +36,8 @@ const hitButton = document.querySelector("button.hit");
 const stayButton = document.querySelector("button.stay");
 
 const playersBetP = document.querySelector(".players-bet");
-const playerCardsUl = document.querySelector(".player .cards");
-const dealerCardsUl = document.querySelector(".dealer .cards");
+const playerCardsDiv = document.querySelector(".player .cards");
+const dealerCardsDiv = document.querySelector(".dealer .cards");
 const playerTotalP = document.querySelector(".player .total");
 const dealerTotalP = document.querySelector(".dealer .total");
 const suitIcons = document.querySelector(".suit-icons");
@@ -66,6 +66,11 @@ function getFormattedCardName(card) {
     return (name);
 }
 
+function getCardImageName(card) {
+    const name = `./images/${cardRanks[card[1]]}_of_${card[0]}.svg`.toLowerCase();
+    return (name);
+}
+
 function getCard() {
     let randNum = Math.floor(Math.random() * 52);
     while (alreadyUsedNums.includes(randNum)) {
@@ -79,22 +84,23 @@ function getCard() {
     return [cardType, cardRank];
 }
 
-function getNewCardLi(newCard, face) {
-    const newCardLi = document.createElement("li");
-    newCardLi.classList.add(face);
-    if (face === FACE_UP) {
-        newCardLi.textContent = getFormattedCardName(newCard);
-    } else {
-        newCardLi.textContent = "Face-Down Card";
-    }
+function getNewCardImg(newCard, face) {
+    const newImg = document.createElement("img");
 
-    return (newCardLi);
+    if (face === FACE_UP) {
+        newImg.setAttribute("src", getCardImageName(newCard));
+    } else {
+        newImg.setAttribute("src", "./images/card_back.svg");
+    }
+    newImg.classList.add("card-image");
+
+    return (newImg);
 }
 
 function dealCard(hand, cardsUl, face) {
     const newCard = getCard();
     hand.push(newCard);
-    cardsUl.append(getNewCardLi(newCard, face));
+    cardsUl.append(getNewCardImg(newCard, face));
 }
 
 function getAndPrintTotal(hand, totalP) {
@@ -126,7 +132,7 @@ function getAndPrintTotal(hand, totalP) {
 }
 
 function hit() {
-    dealCard(playerHand, playerCardsUl, FACE_UP);
+    dealCard(playerHand, playerCardsDiv, FACE_UP);
 
     const total = getAndPrintTotal(playerHand, playerTotalP);
 
@@ -139,14 +145,14 @@ function hit() {
 
 function stay() {
     // end of round: dealer flips face down card
-    dealerCardsUl.children[1].classList.remove(FACE_DOWN);
+    dealerCardsDiv.children[1].classList.remove(FACE_DOWN);
     let dealerTotal = getAndPrintTotal(dealerHand, dealerTotalP);
     alert(`Dealer flipped face-down card: ${getFormattedCardName(dealerHand[1])}.\nDealer's total is ${dealerTotal}.`);
 
     // if total <= 16: take another card ("hit")
     // if total >= 17: stay with hand ("stay")
     while (dealerTotal <= 16) {
-        dealCard(dealerHand, dealerCardsUl, FACE_UP);
+        dealCard(dealerHand, dealerCardsDiv, FACE_UP);
         dealerTotal = getAndPrintTotal(dealerHand, dealerTotalP);
         alert(`Dealer hit: ${getFormattedCardName(dealerHand[dealerHand.length - 1])}.\nDealer's total is ${dealerTotal}.`)
         
@@ -194,8 +200,8 @@ function resetVars() {
 
     playersBetP.textContent = "";
     
-    playerCardsUl.innerHTML = "";
-    dealerCardsUl.innerHTML = "";
+    playerCardsDiv.innerHTML = "";
+    dealerCardsDiv.innerHTML = "";
 
     playerTotalP.innerHTML = "";
     dealerTotalP.innerHTML = "";
@@ -206,7 +212,7 @@ function endRound() {
     stayButton.classList.remove("visible");
 
     // reveal dealer's face-down card
-    dealerCardsUl.children[1].textContent = getFormattedCardName(dealerHand[1]);
+    dealerCardsDiv.children[1].setAttribute("src", getCardImageName(dealerHand[1]));
 
     updateLog();
     suitIcons.classList.add("wait-animation");
@@ -219,14 +225,14 @@ function endRound() {
 
 function initialDeal() {
     // dealer deals 1 card face up to everyone, inc self
-    dealCard(playerHand, playerCardsUl, FACE_UP);
-    dealCard(dealerHand, dealerCardsUl, FACE_UP);
+    dealCard(playerHand, playerCardsDiv, FACE_UP);
+    dealCard(dealerHand, dealerCardsDiv, FACE_UP);
 
     // dealer deals 1 card face up to everyone, ex self
-    dealCard(playerHand, playerCardsUl, FACE_UP);
+    dealCard(playerHand, playerCardsDiv, FACE_UP);
 
     // dealer deals 1 card face down to self
-    dealCard(dealerHand, dealerCardsUl, FACE_DOWN);
+    dealCard(dealerHand, dealerCardsDiv, FACE_DOWN);
 }
 
 function startRound() {
@@ -237,6 +243,8 @@ function startRound() {
     playersBetP.innerHTML = `<b>Your bet: ${bet}</b>`;
 
     initialDeal();
+
+    dealerTotalP.innerHTML = `<b>Total: ?</b>`;
     
     // if a player's 2 face up cards total 21, auto win: 1.5x bet from dealer; done for the round
     const playerTotal = getAndPrintTotal(playerHand, playerTotalP);
