@@ -95,6 +95,10 @@ h3 {
   display: flex;
   flex-direction: row;
 }
+.wrapper-cards-total.fade-out {
+  transition: opacity 1s 2s;
+  opacity: 0%;
+}
 .wrapper-cards-total .total {
   text-align: center;
   align-self: center;
@@ -103,7 +107,7 @@ h3 {
 button.hit,
 button.stay,
 button.play {
-  visibility: hidden;
+  transform: scale(0%);
   padding: 5px 15px;
   border: none;
   border-radius: 3px;
@@ -113,12 +117,12 @@ button.play {
   text-transform: uppercase;
   font-size: 1rem;
   font-weight: bold;
+  transition: all 0.3s;
 }
-
 button.hit.visible,
 button.stay.visible,
 button.play.visible {
-  visibility: visible;
+  transform: scale(100%);
 }
 
 .suit-icons {
@@ -285,6 +289,88 @@ button.play.visible {
   to {
     transform: rotate(20deg) translateY(0px);
     opacity: 1;
+  }
+}
+
+h1.highlight-animation span:nth-child(1) {
+  animation: header-animation-1 1s linear 1.1s;
+}
+@keyframes header-animation-1 {
+  50% {
+    font-colo: white;
+    text-shadow: 0 0 5px white;
+  }
+}
+h1.highlight-animation span:nth-child(2) {
+  animation: header-animation-2 1s linear 1.2s;
+}
+@keyframes header-animation-2 {
+  50% {
+    font-colo: white;
+    text-shadow: 0 0 5px white;
+  }
+}
+h1.highlight-animation span:nth-child(3) {
+  animation: header-animation-3 1s linear 1.3s;
+}
+@keyframes header-animation-3 {
+  50% {
+    font-colo: white;
+    text-shadow: 0 0 5px white;
+  }
+}
+h1.highlight-animation span:nth-child(4) {
+  animation: header-animation-4 1s linear 1.4s;
+}
+@keyframes header-animation-4 {
+  50% {
+    font-colo: white;
+    text-shadow: 0 0 5px white;
+  }
+}
+h1.highlight-animation span:nth-child(5) {
+  animation: header-animation-5 1s linear 1.5s;
+}
+@keyframes header-animation-5 {
+  50% {
+    font-colo: white;
+    text-shadow: 0 0 5px white;
+  }
+}
+h1.highlight-animation span:nth-child(6) {
+  animation: header-animation-6 1s linear 1.6s;
+}
+@keyframes header-animation-6 {
+  50% {
+    font-colo: white;
+    text-shadow: 0 0 5px white;
+  }
+}
+h1.highlight-animation span:nth-child(7) {
+  animation: header-animation-7 1s linear 1.7s;
+}
+@keyframes header-animation-7 {
+  50% {
+    font-colo: white;
+    text-shadow: 0 0 5px white;
+  }
+}
+h1.highlight-animation span:nth-child(8) {
+  animation: header-animation-8 1s linear 1.8s;
+}
+@keyframes header-animation-8 {
+  50% {
+    font-colo: white;
+    text-shadow: 0 0 5px white;
+  }
+}
+h1.highlight-animation span:nth-child(9) {
+  animation: header-animation-9 1s linear 1.9s;
+}
+@keyframes header-animation-9 {
+  50% {
+    font-colo: white;
+    text-shadow: 0 0 5px white;
   }
 }
 

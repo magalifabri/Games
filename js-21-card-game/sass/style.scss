@@ -105,6 +105,11 @@ h3 {
     display: flex;
     flex-direction: row;
     
+    &.fade-out {
+        transition: opacity 1s 2s;
+        opacity: 0%;
+    }
+
     .total {
         text-align: center;
         align-self: center;
@@ -117,24 +122,24 @@ h3 {
 button.hit,
 button.stay,
 button.play {
-    visibility: hidden;
+    transform: scale(0%);
 
     padding: 5px 15px;
     border: none;
     border-radius: 3px;;
-    
     background-color: $darkColor;
+    
     color: $lightColor;
     font-family: inherit;
     text-transform: uppercase;
     font-size: 1rem;
     font-weight: bold;
-}
 
-button.hit.visible,
-button.stay.visible,
-button.play.visible {
-    visibility: visible;
+    transition: all .3s;
+
+    &.visible {
+        transform: scale(100%);
+    }
 }
 
 
@@ -199,5 +204,25 @@ button.play.visible {
         left: $i * 30px;
         @include add-card-animation-mixin($i);
         animation-fill-mode: forwards;
+    }
+}
+
+
+// HEADER ANIMATION
+
+@mixin header-animation-mixin($i) {
+    animation: #{header-animation- + $i} 1s linear 1s + (.1s * $i);
+    @keyframes #{header-animation- + $i} {
+        0% {}
+        50% {font-colo: white; text-shadow: 0 0 5px white}
+        100% {}
+    }
+}
+
+h1.highlight-animation {
+    @for $i from 1 to 10 {
+        span:nth-child(#{$i}) {
+            @include header-animation-mixin($i);
+        }
     }
 }

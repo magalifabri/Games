@@ -41,6 +41,8 @@ const dealerCardsDiv = document.querySelector(".dealer .cards");
 const playerTotalP = document.querySelector(".player .total");
 const dealerTotalP = document.querySelector(".dealer .total");
 const suitIcons = document.querySelector(".suit-icons");
+const h1 = document.querySelector("h1");
+const wrapperCardsTotal = document.querySelectorAll(".wrapper-cards-total");
 
 playButton.addEventListener("click", startRound);
 hitButton.addEventListener("click", hit);
@@ -222,10 +224,14 @@ function endRound() {
     dealerCardsDiv.children[1].setAttribute("src", getCardImageName(dealerHand[1]));
 
     updateLog();
+    h1.classList.add("highlight-animation");
     suitIcons.classList.add("wait-animation");
+    wrapperCardsTotal.forEach(wrapper => wrapper.classList.add("fade-out"));
     setTimeout(() => {
         resetVars();
+        h1.classList.remove("highlight-animation");
         suitIcons.classList.remove("wait-animation");
+        wrapperCardsTotal.forEach(wrapper => wrapper.classList.remove("fade-out"));
         playButton.classList.add("visible");
     }, 3000);
 }
