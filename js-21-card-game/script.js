@@ -140,6 +140,10 @@ function hit() {
         alert(`BUST! (Your total is ${total})`);
         balance = -bet;
         endRound();
+    } else if (playerHand.length === 5) {
+        alert(`5-CARD-CHARLIE! (You have 5 cards without busting)`);
+        balance = bet * 2;
+        endRound();
     }
 }
 
@@ -237,7 +241,7 @@ function initialDeal() {
 
 function getValidBet() {
     let validBetGiven = false;
-    
+
     while (validBetGiven === false) {
         bet = +prompt("Place your bet (min. 1)", 10);
         if (bet >= 1)
