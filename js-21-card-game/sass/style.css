@@ -1,10 +1,8 @@
 /*
-font-family: 'DM Serif Display', serif;
-font-family: 'Open Sans', sans-serif;
 font-family: 'Playfair Display', serif;
-font-family: 'Prata', serif;
+font-family: 'EB Garamond', serif;
+font-family: 'Open Sans', sans-serif;
 font-family: 'Roboto', sans-serif;
-font-family: 'Yeseva One', cursive;
 */
 * {
   box-sizing: border-box;
@@ -29,11 +27,13 @@ hr {
 
 body {
   font-family: "Open Sans", sans-serif;
+  min-width: 300px;
+  background-color: whitesmoke;
 }
 
 header {
-  background-color: black;
-  color: white;
+  background-color: #222222;
+  color: whitesmoke;
   padding: 20px;
 }
 
@@ -42,7 +42,7 @@ header a {
 }
 
 a {
-  color: black;
+  color: #222222;
 }
 
 main {
@@ -87,6 +87,18 @@ h3 {
   align-items: center;
   gap: 10px;
 }
+.wrapper-hand-buttons .hit {
+  margin-left: auto;
+}
+
+.wrapper-cards-total {
+  display: flex;
+  flex-direction: row;
+}
+.wrapper-cards-total .total {
+  text-align: center;
+  align-self: center;
+}
 
 button.hit,
 button.stay,
@@ -95,8 +107,8 @@ button.play {
   padding: 5px 15px;
   border: none;
   border-radius: 3px;
-  background-color: black;
-  color: white;
+  background-color: #222222;
+  color: whitesmoke;
   font-family: inherit;
   text-transform: uppercase;
   font-size: 1rem;
@@ -136,12 +148,15 @@ button.play.visible {
   }
   25% {
     transform: translate(10px, -10px) scale(110%);
+    color: inherit;
   }
   50% {
     transform: translate(20px, 0px) scale(130%);
+    color: #c92727;
   }
   75% {
     transform: translate(10px, 10px) scale(110%);
+    color: inherit;
   }
   100% {
     transform: translate(0px, 0px);
@@ -152,12 +167,13 @@ button.play.visible {
   width: 100%;
   height: 125px;
 }
-
-.card-image {
+.cards .card-image {
   position: absolute;
   top: 0;
   left: 0;
   width: 75px;
+  border-radius: 3px;
+  box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.5);
 }
 
 .card-image:nth-child(1) {
