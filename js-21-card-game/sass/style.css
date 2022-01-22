@@ -162,37 +162,114 @@ button.play.visible {
 
 .card-image:nth-child(1) {
   left: 0px;
-  transform: rotate(-10deg);
+  animation: add-card-animation-1 0.5s ease-out;
+  animation-fill-mode: forwards;
+}
+@keyframes add-card-animation-1 {
+  from {
+    transform: rotate(0) translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(-10deg) translateY(0px);
+    opacity: 1;
+  }
 }
 
 .card-image:nth-child(2) {
   left: 30px;
-  transform: rotate(-5deg);
+  animation: add-card-animation-2 0.5s ease-out;
+  animation-fill-mode: forwards;
+}
+@keyframes add-card-animation-2 {
+  from {
+    transform: rotate(0) translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(-5deg) translateY(0px);
+    opacity: 1;
+  }
 }
 
 .card-image:nth-child(3) {
   left: 60px;
-  transform: rotate(0deg);
+  animation: add-card-animation-3 0.5s ease-out;
+  animation-fill-mode: forwards;
+}
+@keyframes add-card-animation-3 {
+  from {
+    transform: rotate(0) translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(0deg) translateY(0px);
+    opacity: 1;
+  }
 }
 
 .card-image:nth-child(4) {
   left: 90px;
-  transform: rotate(5deg);
+  animation: add-card-animation-4 0.5s ease-out;
+  animation-fill-mode: forwards;
+}
+@keyframes add-card-animation-4 {
+  from {
+    transform: rotate(0) translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(5deg) translateY(0px);
+    opacity: 1;
+  }
 }
 
 .card-image:nth-child(5) {
   left: 120px;
-  transform: rotate(10deg);
+  animation: add-card-animation-5 0.5s ease-out;
+  animation-fill-mode: forwards;
+}
+@keyframes add-card-animation-5 {
+  from {
+    transform: rotate(0) translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(10deg) translateY(0px);
+    opacity: 1;
+  }
 }
 
 .card-image:nth-child(6) {
   left: 150px;
-  transform: rotate(15deg);
+  animation: add-card-animation-6 0.5s ease-out;
+  animation-fill-mode: forwards;
+}
+@keyframes add-card-animation-6 {
+  from {
+    transform: rotate(0) translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(15deg) translateY(0px);
+    opacity: 1;
+  }
 }
 
 .card-image:nth-child(7) {
   left: 180px;
-  transform: rotate(20deg);
+  animation: add-card-animation-7 0.5s ease-out;
+  animation-fill-mode: forwards;
+}
+@keyframes add-card-animation-7 {
+  from {
+    transform: rotate(0) translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: rotate(20deg) translateY(0px);
+    opacity: 1;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */

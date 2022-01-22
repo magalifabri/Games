@@ -149,9 +149,27 @@ button.play.visible {
     width: 75px;
 }
 
+@mixin add-card-animation-mixin($i) {
+    animation: #{add-card-animation- + ($i + 1)} .5s ease-out;
+
+    @keyframes #{add-card-animation- + ($i + 1)} {
+        from {
+            // transform: rotate(0) scale(0);
+            transform: rotate(0) translateY(-50px);
+            opacity: 0;
+        }
+        to {
+            // transform: rotate(-10deg + ($i * 5)) scale(1);
+            transform: rotate(-10deg + ($i * 5)) translateY(0px);
+            opacity: 1;
+        }
+    }
+}
+
 @for $i from 0 to 7 {
     .card-image:nth-child(#{$i + 1}) {
         left: $i * 30px;
-        transform: rotate(-10deg + ($i * 5));
+        @include add-card-animation-mixin($i);
+        animation-fill-mode: forwards;
     }
 }
