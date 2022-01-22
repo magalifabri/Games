@@ -35,13 +35,17 @@ const playButton = document.querySelector("button.play");
 const hitButton = document.querySelector("button.hit");
 const stayButton = document.querySelector("button.stay");
 
-const playersBetP = document.querySelector(".players-bet");
 const playerCardsDiv = document.querySelector(".player .cards");
 const dealerCardsDiv = document.querySelector(".dealer .cards");
-const playerTotalP = document.querySelector(".player .total");
+
+const playersBetP = document.querySelector(".players-bet");
 const dealerTotalP = document.querySelector(".dealer .total");
-const suitIcons = document.querySelector(".suit-icons");
+const playerTotalP = document.querySelector(".player .total");
+const balanceP = document.querySelector(".balance span");
+const logUl = document.querySelector(".log");
+
 const h1 = document.querySelector("h1");
+const suitIcons = document.querySelector(".suit-icons");
 const wrapperCardsTotal = document.querySelectorAll(".wrapper-cards-total");
 
 playButton.addEventListener("click", startRound);
@@ -189,13 +193,11 @@ function stay() {
 
 function updateLog() {
     totalBalance += balance;
-    const balanceP = document.querySelector(".balance span");
     balanceP.textContent = totalBalance;
     
-    const logUl = document.querySelector(".log");
     const newLi = document.createElement("li");
     newLi.textContent = balance;
-    logUl.append(newLi);
+    logUl.insertBefore(newLi, logUl.children[0]);
 }
 
 function resetVars() {
