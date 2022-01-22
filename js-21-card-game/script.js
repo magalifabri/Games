@@ -268,7 +268,7 @@ function startRound() {
     const playerTotal = getAndPrintTotal(playerHand, playerTotalP);
     if (playerTotal === 21) {
         balance = bet * 1.5;
-        alert(`YOU WIN! (You have ${playerTotal})`);
+        alert(`BLACKJACK!`);
         endRound();
         return ;
     }
