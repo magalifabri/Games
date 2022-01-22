@@ -144,7 +144,7 @@ function hit() {
         endRound();
     } else if (playerHand.length === 5) {
         alert(`5-CARD-CHARLIE! (You have 5 cards without busting)`);
-        balance = bet * 2;
+        balance = bet;
         endRound();
     }
 }
@@ -165,7 +165,7 @@ function stay() {
         // if new total > 21, "bust": everybody still in round wins 2x bet
         if (dealerTotal > 21) {
             alert(`YOU WIN! (Dealer busted with ${dealerTotal})`);
-            balance = bet * 2;
+            balance = bet;
             endRound();
             return ;
         }
@@ -176,7 +176,7 @@ function stay() {
     const playerTotal = getAndPrintTotal(playerHand, playerTotalP);
     if (playerTotal > dealerTotal) {
         alert(`YOU WIN! (You have ${playerTotal}; Dealer has ${dealerTotal})`);
-        balance = bet * 2;
+        balance = bet;
     } else if (playerTotal < dealerTotal) {
         alert(`You Lose. (You have ${playerTotal}; Dealer has ${dealerTotal})`);
         balance = -bet;
@@ -264,7 +264,7 @@ function startRound() {
     // player places bets
     getValidBet();
 
-    playersBetP.innerHTML = `<b>Your bet: ${bet}</b>`;
+    playersBetP.innerHTML = `<b>Bet: ${bet}</b>`;
 
     initialDeal();
 
@@ -273,7 +273,7 @@ function startRound() {
     // if a player's 2 face up cards total 21, auto win: 1.5x bet from dealer; done for the round
     const playerTotal = getAndPrintTotal(playerHand, playerTotalP);
     if (playerTotal === 21) {
-        balance = bet * 1.5;
+        balance = bet * .5;
         alert(`BLACKJACK!`);
         endRound();
         return ;
