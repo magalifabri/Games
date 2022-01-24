@@ -54,6 +54,20 @@ stayButton.addEventListener("click", stay);
 window.addEventListener("keydown", checkKeyPress);
 
 
+function preloadImages() {
+    for (const type of cardTypes) {
+        for (const rank of cardRanks) {
+            if (rank === "") {
+                continue ;
+            }
+            const cardURL = `./images/${rank}_of_${type}.svg`.toLowerCase();
+            const img = new Image();
+            img.src = cardURL;
+        }
+    }
+}
+preloadImages();
+
 function checkKeyPress(event) {
     if (event.key === "Enter"
     && playButton.classList.contains("visible")) {
